@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { FeedService } from './feed/feed.service';
 import { Article, Source } from './feed/feed.model';
 import * as Rx from 'rxjs';
-import { switchMap, startWith, tap, filter, take } from 'rxjs/operators';
+import { switchMap, startWith, tap, filter, take, withLatestFrom } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -42,7 +42,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.articles$ = this.form.get('source').valueChanges.pipe(
       startWith(this.form.get('source').value),
       filter(sourceId => sourceId !== undefined && sourceId !== null),
-      switchMap(sourceId => this.feed.getFeed(sourceId)),
+      withLatestFrom(this.sources$),
+      switchMap(([sourceId, sources]: [number, Source[]]) => {
+        const source = sources.find(s => s.id === sourceId);
+        return this.feed.getFeed(source);
+      }),
     );
 
   }
