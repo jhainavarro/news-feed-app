@@ -1,5 +1,7 @@
 # News Feed
 
+Access the web app through this [LINK](http://ec2-3-0-146-165.ap-southeast-1.compute.amazonaws.com/)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.5.
 
 Backend API is in https://github.com/JhaiNavarro/news-feed
