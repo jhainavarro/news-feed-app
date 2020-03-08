@@ -42,13 +42,14 @@ export class AppComponent implements OnInit, OnDestroy {
         },
       );
 
-    this.articles$ = this.form.get('source').valueChanges.pipe(
-      startWith(this.form.get('source').value),
+    this.articles$ = Rx.combineLatest([
+      this.form.get('source').valueChanges,
+      this.sources$,
+    ]).pipe(
       filter(sourceId => sourceId !== undefined && sourceId !== null),
-      withLatestFrom(this.sources$),
       switchMap(([sourceId, sources]: [string, Source[]]) => {
         const source = sources.find(s => s.id === sourceId);
-        return this.feed.getFeed(source);
+        return this.feed.get(source);
       }),
     );
 

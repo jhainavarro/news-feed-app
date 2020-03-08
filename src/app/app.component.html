@@ -5,10 +5,4 @@
 
 <hr />
 
-<ng-container *ngFor="let article of articles$ | async">
-  <img [src]="article.imageSrc"><br>
-  <a [href]="article.link" target="_blank">{{ article.title }}</a>
-  <p>{{ article.author }}</p>
-  <p>{{ article.date | date }}</p>
-  <p>{{ article.excerpt }}</p>
-</ng-container>
+<app-feed [articles$]="articles$"></app-feed>

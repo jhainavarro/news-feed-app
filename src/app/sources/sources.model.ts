@@ -1,7 +1,7 @@
 export interface Source {
   id: string;
   name: string;
-  url: string;
+  url?: string;
 }
 
 export interface SourcesGetResponse {
