@@ -1,7 +1,14 @@
-<ng-container *ngFor="let article of articles$ | async">
-  <img [src]="article.imageSrc"><br>
-  <a [href]="article.link" target="_blank">{{ article.title }}</a>
-  <p>{{ article.author }}</p>
-  <p>{{ article.date | date }}</p>
-  <p>{{ article.excerpt }}</p>
-</ng-container>
+<mat-card class="Article" *ngFor="let article of articles$ | async">
+
+  <img
+    class="Article-image"
+    [src]="article.imageSrc ? article.imageSrc : '/assets/placeholder.png'"
+    [alt]="article.title"
+  >
+
+  <mat-card-title class="Article-title">{{ article.title }}</mat-card-title>
+  <mat-card-subtitle>{{ article.date | date }}</mat-card-subtitle>
+
+  <mat-card-content>{{ article.excerpt }}</mat-card-content>
+
+</mat-card>
