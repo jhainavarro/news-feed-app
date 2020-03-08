@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Article } from './feed.model';
 import * as Rx from 'rxjs';
 
@@ -10,5 +11,9 @@ import * as Rx from 'rxjs';
 export class FeedComponent {
 
   @Input() articles$: Rx.Observable<Article[]>;
+  @Input() pageSize: number = 10;
+  @Input() totalItems: number;
+
+  @Output() page = new EventEmitter<PageEvent>();
 
 }

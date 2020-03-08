@@ -8,7 +8,12 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <app-feed [articles$]="articles$"></app-feed>
+    <app-feed
+      [articles$]="articles$"
+      [pageSize]="PAGE_SIZE"
+      [totalItems]="24"
+      (page)="handlePageChange($event)"
+    ></app-feed>
   </mat-sidenav-content>
 
 </mat-sidenav-container>

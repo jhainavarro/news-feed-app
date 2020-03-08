@@ -12,9 +12,11 @@ export class FeedService {
 
   constructor(private http: HttpClient) {}
 
-  get(source: Source): Rx.Observable<Article[]> {
-    let params = new HttpParams();
-    params = params.set('sources[]', source.id);
+  get(source: Source, page = 1, pageSize = 10): Rx.Observable<Article[]> {
+    let params = new HttpParams()
+      .set('sources[]', source.id)
+      .set('page', `${page}`)
+      .set('pageSize', `${pageSize}`);
 
     return this.http.get(this.feedUrl, { params }).pipe(
       switchMap(({ status, articles}: ArticlesGetResponse) => {

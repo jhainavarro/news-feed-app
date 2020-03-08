@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserModule } from '@angular/platform-browser';
@@ -29,6 +30,7 @@ import { SourcesService } from './sources/sources.service';
     BrowserAnimationsModule,
     MatCardModule,
     MatListModule,
+    MatPaginatorModule,
     MatRadioModule,
     MatSidenavModule,
   ],
