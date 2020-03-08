@@ -1,4 +1,9 @@
-<mat-paginator [length]="totalItems" [pageSize]="pageSize" (page)="page.emit($event)"></mat-paginator>
+<mat-paginator
+  [length]="totalItems"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  (page)="page.emit($event)"
+></mat-paginator>
 
 <div class="Container">
   <mat-card class="Article" *ngFor="let article of articles$ | async">

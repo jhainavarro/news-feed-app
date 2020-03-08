@@ -11,6 +11,7 @@ import * as Rx from 'rxjs';
 export class FeedComponent {
 
   @Input() articles$: Rx.Observable<Article[]>;
+  @Input() pageIndex: number;
   @Input() pageSize: number = 10;
   @Input() totalItems: number;
 

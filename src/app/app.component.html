@@ -10,6 +10,7 @@
   <mat-sidenav-content>
     <app-feed
       [articles$]="articles$"
+      [pageIndex]="page$ | async"
       [pageSize]="PAGE_SIZE"
       [totalItems]="24"
       (page)="handlePageChange($event)"
