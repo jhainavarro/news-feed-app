@@ -1,9 +1,7 @@
-<form>
-  <div *ngFor="let source of sources$ | async">
-    <input type="radio" [id]="source.name" [value]="source.id" name="source" [formControl]="form.get('source')" />
-    <label [for]="source.name">{{ source.name }}</label>
-  </div>
-</form>
+<app-sources
+  [selected]="form.get('source')"
+  [sources$]="sources$"
+></app-sources>
 
 <hr />
 

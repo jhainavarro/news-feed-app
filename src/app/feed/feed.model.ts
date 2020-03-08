@@ -1,9 +1,3 @@
-export interface Source {
-    id: number;
-    name: string;
-    url: string;
-}
-
 export interface Article {
     title: string;
     author: string;

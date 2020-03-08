@@ -1,0 +1,12 @@
+<form class="Container">
+  <div *ngFor="let source of sources$ | async">
+    <input
+      name="source"
+      type="radio"
+      [id]="source.name"
+      [formControl]="selected"
+      [value]="source.id"
+    >
+    <label [for]="source.name">{{ source.name }}</label>
+  </div>
+</form>

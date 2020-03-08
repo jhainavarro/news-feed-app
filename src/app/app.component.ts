@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FeedService } from './feed/feed.service';
-import { Article, Source } from './feed/feed.model';
+import { Article } from './feed/feed.model';
+import { SourcesService } from './sources/sources.service';
+import { Source } from './sources/sources.model';
 import * as Rx from 'rxjs';
 import { switchMap, startWith, tap, filter, take, withLatestFrom } from 'rxjs/operators';
 
@@ -11,9 +13,9 @@ import { switchMap, startWith, tap, filter, take, withLatestFrom } from 'rxjs/op
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  
+
   form: FormGroup;
-  
+
   sources$: Rx.Observable<Source[]>;
   articles$: Rx.Observable<Article[]>;
 
@@ -22,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private feed: FeedService,
+    private sources: SourcesService,
   ) {}
 
   ngOnInit() {
@@ -29,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
       source: [],
     });
 
-    this.sources$ = this.feed.getSources();
+    this.sources$ = this.sources.get();
 
     this.defaultSelectedSourceSubscription = this.sources$
       .pipe(take(1))
@@ -43,7 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
       startWith(this.form.get('source').value),
       filter(sourceId => sourceId !== undefined && sourceId !== null),
       withLatestFrom(this.sources$),
-      switchMap(([sourceId, sources]: [number, Source[]]) => {
+      switchMap(([sourceId, sources]: [string, Source[]]) => {
         const source = sources.find(s => s.id === sourceId);
         return this.feed.getFeed(source);
       }),
