@@ -37,12 +37,19 @@ export class FeedService {
       return;
     }
 
+    let imageSrc = item.urlToImage;
+
+    // Handle API returning `"null"` string
+    if (imageSrc === 'null' || imageSrc === 'undefined') {
+      imageSrc = undefined;
+    }
+
     return {
       title: item.title,
       author: item.author ?? '',
       date: new Date(item.publishedAt),
       excerpt: item.content,
-      imageSrc: item.urlToImage,
+      imageSrc,
       link: item.url,
     };
   }
