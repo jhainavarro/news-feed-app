@@ -6,7 +6,13 @@ import { Article } from './feed/feed.model';
 import { SourcesService } from './sources/sources.service';
 import { Source } from './sources/sources.model';
 import * as Rx from 'rxjs';
-import { switchMap, filter, take, tap, distinctUntilChanged } from 'rxjs/operators';
+import {
+  switchMap,
+  filter,
+  take,
+  tap,
+  distinctUntilChanged,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private sources: SourcesService,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.form = this.fb.group({
       source: [],
     });
@@ -57,7 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
     ]).pipe(
       filter(sourceId => sourceId !== undefined && sourceId !== null),
       switchMap(([sourceId, sources]: [string, Source[]]) =>
-          Rx.of(sources.find(s => s.id === sourceId)) ),
+        Rx.of(sources.find(s => s.id === sourceId))),
       tap(() => {
         this.pageIndexSubject.next(0);
       }),
@@ -74,17 +80,20 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.defaultSelectedSourceSubscription) {
       this.defaultSelectedSourceSubscription.unsubscribe();
     }
   }
 
-  handlePageChange(event: PageEvent) {
+  handlePageChange(event: PageEvent): void {
     this.pageIndexSubject.next(event.pageIndex);
   }
 
-  private isSameFeedToFetch(prev: [Source, number], curr: [Source, number]) {
+  private isSameFeedToFetch(
+    prev: [Source, number],
+    curr: [Source, number],
+  ): boolean {
     const [ prevSource, prevPage ] = prev;
     const [ currSource, currPage] = curr;
     return prevSource.id === currSource.id && prevPage === currPage;

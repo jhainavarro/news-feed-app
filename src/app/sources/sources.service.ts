@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Source, SourceApi, SourcesGetResponse } from './sources.model';
 import * as Rx from 'rxjs';
 import { publishReplay, refCount, map, switchMap } from 'rxjs/operators';

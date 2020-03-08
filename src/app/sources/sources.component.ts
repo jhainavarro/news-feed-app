@@ -6,7 +6,7 @@ import * as Rx from 'rxjs';
 @Component({
   selector: 'app-sources',
   templateUrl: './sources.component.html',
-  styleUrls: ['./sources.component.scss']
+  styleUrls: ['./sources.component.scss'],
 })
 export class SourcesComponent {
 

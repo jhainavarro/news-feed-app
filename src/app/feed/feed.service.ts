@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Article, ArticlesGetResponse, ArticleApi } from './feed.model';
 import { Source } from '../sources/sources.model';
 import { publishReplay, refCount, switchMap, map } from 'rxjs/operators';
@@ -13,7 +13,7 @@ export class FeedService {
   constructor(private http: HttpClient) {}
 
   get(source: Source, page = 1, pageSize = 10): Rx.Observable<Article[]> {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('sources[]', source.id)
       .set('page', `${page}`)
       .set('pageSize', `${pageSize}`);
