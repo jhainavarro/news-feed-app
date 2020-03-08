@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { Source, SourceApi, SourcesGetResponse } from './sources.model';
 import * as Rx from 'rxjs';
 import { publishReplay, refCount, map, switchMap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class SourcesService {
 
-  private sourcesUrl = 'http://localhost:3000/sources';
+  private sourcesUrl = `${environment.apiBaseUrl}/sources`;
 
   constructor(private http: HttpClient) {}
 

@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from './../../environments/environment';
 import { Article, ArticlesGetResponse, ArticleApi } from './feed.model';
 import { Source } from '../sources/sources.model';
 import { publishReplay, refCount, switchMap, map } from 'rxjs/operators';
@@ -8,7 +9,7 @@ import * as Rx from 'rxjs';
 @Injectable()
 export class FeedService {
 
-  private feedUrl = 'http://localhost:3000/feed';
+  private feedUrl = `${environment.apiBaseUrl}/feed`;
 
   constructor(private http: HttpClient) {}
 
