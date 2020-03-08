@@ -1,8 +1,14 @@
-<app-sources
-  [selected]="form.get('source')"
-  [sources$]="sources$"
-></app-sources>
+<mat-sidenav-container class="Container" autosize>
 
-<hr />
+  <mat-sidenav mode="side" opened>
+    <app-sources
+      [selected]="form.get('source')"
+      [sources$]="sources$"
+    ></app-sources>
+  </mat-sidenav>
 
-<app-feed [articles$]="articles$"></app-feed>
+  <mat-sidenav-content>
+    <app-feed [articles$]="articles$"></app-feed>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
