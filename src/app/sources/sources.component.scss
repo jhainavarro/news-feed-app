@@ -1,4 +1,12 @@
 .Container {
+  padding: 0;
+}
+
+.Item {
   margin-right: 24px;
-  padding: 16px;
+}
+
+.IsSelected {
+  background: #b39ddb;
+  color: #311b92;
 }

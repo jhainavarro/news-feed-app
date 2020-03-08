@@ -1,12 +1,13 @@
-<form class="Container">
-  <div *ngFor="let source of sources$ | async">
-    <input
-      name="source"
-      type="radio"
-      [id]="source.name"
-      [formControl]="selected"
-      [value]="source.id"
+<mat-list  class="Container" role="list">
+  <mat-radio-group [formControl]="selected">
+    <mat-list-item
+      role="listitem"
+      *ngFor="let source of sources$ | async"
+      [ngClass]="{ 'IsSelected': source.id === selected.value }"
     >
-    <label [for]="source.name">{{ source.name }}</label>
-  </div>
-</form>
+      <mat-radio-button class="Item" [value]="source.id" [disableRipple]="true">
+        {{ source.name }}
+      </mat-radio-button>
+    </mat-list-item>
+  </mat-radio-group>
+</mat-list>

@@ -10,7 +10,7 @@ import * as Rx from 'rxjs';
 })
 export class SourcesComponent {
 
-    @Input() sources$: Rx.Observable<Source[]>;
-    @Input() selected: FormControl;
+  @Input() sources$: Rx.Observable<Source[]>;
+  @Input() selected: FormControl;
 
 }
