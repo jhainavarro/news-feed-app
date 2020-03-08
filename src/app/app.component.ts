@@ -7,11 +7,12 @@ import { SourcesService } from './sources/sources.service';
 import { Source } from './sources/sources.model';
 import * as Rx from 'rxjs';
 import {
-  switchMap,
+  distinctUntilChanged,
   filter,
+  map,
+  switchMap,
   take,
   tap,
-  distinctUntilChanged,
 } from 'rxjs/operators';
 
 @Component({
@@ -26,8 +27,9 @@ export class AppComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
   articles$: Rx.Observable<Article[]>;
-  sources$: Rx.Observable<Source[]>;
   page$: Rx.Observable<number>;
+  sources$: Rx.Observable<Source[]>;
+  totalResults$: Rx.Observable<number>;
 
   private defaultSelectedSourceSubscription: Rx.Subscription;
   private pageIndexSubject: Rx.BehaviorSubject<number>;
@@ -69,7 +71,7 @@ export class AppComponent implements OnInit, OnDestroy {
       }),
     );
 
-    this.articles$ = Rx.combineLatest([
+    const feed$ = Rx.combineLatest([
       selectedSource$,
       this.page$,
     ]).pipe(
@@ -78,6 +80,9 @@ export class AppComponent implements OnInit, OnDestroy {
         this.feed.get(source, (page + 1), this.PAGE_SIZE)),
     );
 
+    this.articles$ = feed$.pipe(map(feed => feed.articles));
+
+    this.totalResults$ = feed$.pipe(map(feed => feed.totalResults));
   }
 
   ngOnDestroy(): void {

@@ -12,7 +12,7 @@
       [articles$]="articles$"
       [pageIndex]="page$ | async"
       [pageSize]="PAGE_SIZE"
-      [totalItems]="24"
+      [totalResults]="totalResults$ | async"
       (page)="handlePageChange($event)"
     ></app-feed>
   </mat-sidenav-content>

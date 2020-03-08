@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from './../../environments/environment';
-import { Article, ArticlesGetResponse, ArticleApi } from './feed.model';
+import { Article, ArticlesGetResponse, ArticleApi, Feed } from './feed.model';
 import { Source } from '../sources/sources.model';
-import { publishReplay, refCount, switchMap, map } from 'rxjs/operators';
+import { publishReplay, refCount, switchMap, map, tap } from 'rxjs/operators';
 import * as Rx from 'rxjs';
 
 @Injectable()
@@ -13,21 +13,24 @@ export class FeedService {
 
   constructor(private http: HttpClient) {}
 
-  get(source: Source, page = 1, pageSize = 10): Rx.Observable<Article[]> {
+  get(source: Source, page = 1, pageSize = 10): Rx.Observable<Feed> {
     const params = new HttpParams()
       .set('sources[]', source.id)
       .set('page', `${page}`)
       .set('pageSize', `${pageSize}`);
 
     return this.http.get(this.feedUrl, { params }).pipe(
-      switchMap(({ status, articles}: ArticlesGetResponse) => {
+      switchMap(({ status, totalResults, articles}: ArticlesGetResponse) => {
         if (status === 'ok') {
-          return Rx.of(articles);
+          return Rx.of({ totalResults, articles });
         }
 
         throw new Error(`Unable to get article feed from ${source.name}`);
       }),
-      map(articles => articles.map(this.toArticle)),
+      map(({ totalResults, articles }) => ({
+        totalResults,
+        articles: articles.map(this.toArticle),
+      })),
       publishReplay(1),
       refCount(),
     );

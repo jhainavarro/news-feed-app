@@ -13,7 +13,7 @@ export class FeedComponent {
   @Input() articles$: Rx.Observable<Article[]>;
   @Input() pageIndex: number;
   @Input() pageSize = 10;
-  @Input() totalItems: number;
+  @Input() totalResults: number;
 
   @Output() page = new EventEmitter<PageEvent>();
 
