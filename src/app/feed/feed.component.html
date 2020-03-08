@@ -7,17 +7,17 @@
 
 <div class="Container">
   <mat-card class="Article" *ngFor="let article of articles$ | async">
-
-    <img
-      class="Article-image"
-      [src]="article.imageSrc ? article.imageSrc : '/assets/placeholder.png'"
-      [alt]="article.title"
-    >
+    <a [href]="article.link" target="_blank">
+      <img
+        class="Article-image"
+        [src]="article.imageSrc ? article.imageSrc : '/assets/placeholder.png'"
+        [alt]="article.title"
+      >
+    </a>
 
     <mat-card-title class="Article-title">{{ article.title }}</mat-card-title>
     <mat-card-subtitle>{{ article.date | date }}</mat-card-subtitle>
 
     <mat-card-content>{{ article.excerpt }}</mat-card-content>
-
   </mat-card>
 </div>
